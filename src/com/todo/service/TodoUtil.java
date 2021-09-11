@@ -13,16 +13,15 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("\n"
-				+ "========== Create item Section\n"
-				+ "enter the title\n");
-		
+				+ "========== Create item Section ==========\n");
+		System.out.print("enter the title: ");
 		title = sc.next();
 		if (list.isDuplicate(title)) {
 			System.out.printf("title can't be duplicate");
 			return;
 		}
 		
-		System.out.println("enter the description");
+		System.out.print("enter the description: ");
 		desc = sc.next();
 		
 		TodoItem t = new TodoItem(title, desc);
@@ -32,12 +31,10 @@ public class TodoUtil {
 	public static void deleteItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
-		String title = sc.next();
 		
-		System.out.println("\n"
-				+ "========== Delete Item Section\n"
-				+ "enter the title of item to remove\n"
-				+ "\n");
+		System.out.println("\n========== Delete Item Section ==========\n");
+		System.out.print("enter the title of item to remove: ");
+		String title = sc.next();
 		
 		for (TodoItem item : l.getList()) {
 			if (title.equals(item.getTitle())) {
@@ -53,23 +50,22 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("\n"
-				+ "========== Edit Item Section\n"
-				+ "enter the title of the item you want to update\n"
-				+ "\n");
+				+ "========== Edit Item Section ==========\n");
+		System.out.print("enter the title of the item you want to update: ");
 		String title = sc.next().trim();
 		if (!l.isDuplicate(title)) {
 			System.out.println("title doesn't exist");
 			return;
 		}
 
-		System.out.println("enter the new title of the item");
+		System.out.print("enter the new title of the item: ");
 		String new_title = sc.next().trim();
 		if (l.isDuplicate(new_title)) {
 			System.out.println("title can't be duplicate");
 			return;
 		}
 		
-		System.out.println("enter the new description ");
+		System.out.print("enter the new description: ");
 		String new_description = sc.next().trim();
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().equals(title)) {
@@ -84,7 +80,7 @@ public class TodoUtil {
 
 	public static void listAll(TodoList l) {
 		for (TodoItem item : l.getList()) {
-			System.out.println("Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc());
+			System.out.println("Item Title: " + item.getTitle() + " , Item Description: " + item.getDesc());
 		}
 	}
 }
