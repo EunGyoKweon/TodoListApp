@@ -1,7 +1,11 @@
 package com.todo;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
+import com.todo.dao.TodoItem;
 import com.todo.dao.TodoList;
 import com.todo.menu.Menu;
 import com.todo.service.TodoUtil;
@@ -22,7 +26,11 @@ public class TodoMain {
 			
 			Menu.prompt();
 			isList = false; // do while문을 실행할 때 isList가 true가 되는 과정이 있을 것임.
-			String choice = sc.next();
+			String str = sc.nextLine();
+			
+			StringTokenizer st = new StringTokenizer(str," ");
+			String choice = st.nextToken();
+			
 			switch (choice) {
 
 			case "add":
@@ -68,13 +76,37 @@ public class TodoMain {
 			case "help":
 				Menu.displaymenu();
 				break;
-
+				
+			case "find":
+				String find = st.nextToken();
+				l.find_keyword(find);
+				break;			
+			
+			case "find_cate":
+				String f = st.nextToken();
+				l.find_cate(f);
+				break;
+				
+			case "ls_date_desc":
+				l.reverseByDate();
+				isList = true;
+				System.out.println("item 생성역순서대로 정렬하였습니다.");
+				break;
+				
+			case "ls_cate":
+				l.cate();
+				break;
+				
 			default:
 				System.out.println("정확한 명령어를 입력하세요. (도움말 - help)");
 				break;
 			}
 			
-			if(isList) l.listAll();  // isList가 true일 경우 즉, List가 정렬이 완료되면 list에 있는 item들을 모두 출력
+			if(isList) {
+				l.listAll(); 
+				System.out.println(); 
+				// isList가 true일 경우 즉, List가 정렬이 완료되면 list에 있는 item들을 모두 출력
+			}
 		} while (!quit);
 		TodoUtil.saveList(l, "todolist.txt");
 	}

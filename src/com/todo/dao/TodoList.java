@@ -37,26 +37,42 @@ public class TodoList {
 	// item name을 기준으로 sort
 	public void sortByName() {
 		Collections.sort(list, new TodoSortByName());
+		System.out.println();
 
+	}
+	
+	// 원하는 순서의 item return
+	public TodoItem getitem(int n) {
+		return list.get(n-1);
 	}
 	
 	// list item들 모두 출력
 	public void listAll() {
 		System.out.println("\n"
-				+ "[ 전체 item 목룍 ]\n");
+				+ "[ 전체 item 목록 ]\n");
 		for (TodoItem myitem : list) {
-			System.out.println("[ 제목 ] : " + myitem.getTitle() + ", [ 내용 ] : " + myitem.getDesc() + ", [ item 생성시간 ] : " + myitem.getCurrent_date());
+			System.out.println("[ " + myitem.getCategory() + " ] / " + "[ 제목 ] : " + myitem.getTitle() + " / [ 내용 ] : " + myitem.getDesc() + " / " + myitem.getDue_date() + " / [ item 생성시간 ] : " + myitem.getCurrent_date());
 		}
 	}
 	
 	// list item들 역순 출력
 	public void reverseList() {
 		Collections.reverse(list);
+		System.out.println();
 	}
 	
 	// item 생성시간에 따라서 sort
 	public void sortByDate() {
 		Collections.sort(list, new TodoSortByDate());
+		System.out.println();
+		
+	}
+	
+	// item 생성시간 반대로 sort
+	public void reverseByDate() {
+		Collections.sort(list, new TodoSortByDate());
+		Collections.reverse(list);
+		System.out.println();
 	}
 
 	// 특정한 item의 위치(순서)를 return
@@ -70,5 +86,75 @@ public class TodoList {
 			if (title.equals(item.getTitle())) return true;
 		}
 		return false;
+	}
+	
+	public void find_keyword(String key) {
+		int count = 0, num = 1;
+		
+		System.out.println("===================================================================================================================================================================================================");
+		System.out.println();
+		
+		for (TodoItem item : list) {
+
+			if(item.getTitle().contains(key)) {
+				
+				System.out.println( num + ". [ " + item.getCategory() + " ] / " + "[ 제목 ] : " +item.getTitle() + " / [ 내용 ] : " + item.getDesc() + " / " + item.getDue_date() + " / [ item 생성시간 ] : " + item.getCurrent_date());
+				count++;
+			}
+			if(item.getDesc().contains(key)) {
+				System.out.println( num + ". [ " + item.getCategory() + " ] / " + "[ 제목 ] : " +item.getTitle() + " / [ 내용 ] : " + item.getDesc() + " / " + item.getDue_date() + " / [ item 생성시간 ] : " + item.getCurrent_date());
+				count++;
+			}
+			num++;
+		}
+		
+		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
+		System.out.println();
+		System.out.println("===================================================================================================================================================================================================");
+		System.out.println();
+	}
+	
+	public void cate() {
+		int count = 0;
+		String cat = "카테고리 : ";
+		
+		for (TodoItem item : list) {
+			if(cat.contains(item.getCategory())) {
+				continue;
+			}
+			else {
+				cat += item.getCategory();
+				cat += " / ";
+				count++;
+			}
+		}
+		
+		System.out.println("=============================================================================================================");
+		System.out.println();
+		System.out.println(cat.substring(0, cat.length()-2));
+		System.out.println("총 " + count + "개의 카테고리가 등록되어 있습니다.");
+		System.out.println();
+		System.out.println("=============================================================================================================");
+		System.out.println();
+	}
+	
+	public void find_cate(String f) {
+		int count = 0, num = 1;
+		
+		System.out.println("===================================================================================================================================================================================================");
+		System.out.println();
+		
+		for (TodoItem item : list) {
+
+			if(item.getCategory().contains(f)) {
+				System.out.println( num + ". [ " + item.getCategory() + " ] / " + "[ 제목 ] : " +item.getTitle() + " / [ 내용 ] : " + item.getDesc() + " / " + item.getDue_date() + " / [ item 생성시간 ] : " + item.getCurrent_date());
+				count++;
+			}
+			num++;
+		}
+		System.out.println("총 " + count + "개의 항목을 찾았습니다.");
+		System.out.println();
+		System.out.println("===================================================================================================================================================================================================");
+		System.out.println();
 	}
 }
